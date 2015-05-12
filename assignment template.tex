@@ -1,0 +1,231 @@
+%/////////////////////////////////////////////////////////%
+%//						PREAMBLE						//%
+%/////////////////////////////////////////////////////////%
+
+\documentclass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% 	  Packages
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% Math
+\usepackage{
+			amsmath,			% math operators
+			amssymb,			% math symbols
+			amsthm,				% theorem environment
+			textcomp,			% Provides extra symbols
+			xfrac				% diagonal fractions
+			}
+
+% boxed eqn in aligned use \alignedbox{left side}{= right side} %no &
+\newlength\dlf
+\newcommand\alignedbox[2]{
+  % #1 = before alignment
+  % #2 = after alignment
+  &
+  \begingroup
+  \settowidth\dlf{$\displaystyle #1$}
+  \addtolength\dlf{\fboxsep+\fboxrule}
+  \hspace{-\dlf}
+  \boxed{#1 #2}
+  \endgroup}
+
+
+% Fonts
+\usepackage[T1]{fontenc}		%better font encoding
+\usepackage[utf8]{inputenc}		%better font encoding
+
+%Graphics
+\usepackage{
+			graphicx,			% allow insertion of images
+			tikz,				% vector graphics
+			epstopdf,			% eps files
+			pgfplots,			% plots in vector graphics	
+			xcolor,				% allow colour
+			}
+
+\usepackage[labelformat=simple]{subcaption}				% allows subfigures (a), (b), etc.
+\renewcommand\thesubfigure{(\alph{subfigure})}			% sub figure cross refrences with ()
+
+		
+
+%matlab figures - use matlab2tikz
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false} 
+\newlength\figureheight 
+\newlength\figurewidth 
+
+
+\usetikzlibrary{decorations.pathreplacing}		%tikz curly brace
+\usetikzlibrary{arrows.meta}					%tikz arrows
+\tikzset{>={Latex[width=3mm,length=4mm]}}		%set tikz arrow size
+				
+	
+
+% Tables					%%%%%%%%% Use Excel2LaTeX for easy table creation
+\usepackage{
+			tabularx,			%professional tables
+			booktabs,
+			multirow,
+			bigstrut,
+			diagbox,
+			slashbox,
+			}
+%	\newcolumntype{Y}{>{\centering\arraybackslash}X}	%type Y - even column width - centered
+
+
+% Formatting
+\usepackage{
+%			multicol,			% allow multi columns
+			parskip,			% disable indents
+			relsize,			% for use with uppercase subscripts to make sizing more consistant
+%			pdfpages,			% import pdfs into this document
+%			rotating,			% sideways figures
+			pdflscape, 			% allows landscape pages and rotates landscape pages in pdf file (choose this OR lscape, not both)
+%			lscape,				% allows landscape pages
+%			framed,				% nice boxes; used in Supervisor's Approval
+			caption,			% line breaks in captions with \\
+			fancyhdr,			% see config in LAYOUT AND STYLING
+			lastpage,			% used with (fancyhdr)
+			fullpage,			% set full page margins
+%			listings,			% include code snipits
+%			tocloft, 			% table of contents - used to remove appendix page numbers
+%			enumitem,			% list customization
+%			setspace,			% line spacing
+			enumitem,			% numbering styles 
+			}
+
+
+\setcounter{secnumdepth}{0} %dont number sections
+
+
+% used with setspace
+%\onehalfspacing
+%\doublespacing
+
+
+%% line breaks in code
+%\lstset{
+%%	frame=single,	%framed code
+%	breaklines=true,
+%	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+%}
+
+\usepackage[title,titletoc]{appendix} %appendix setup			
+\usepackage[hidelinks]{hyperref}	%hyperlinks
+	\hypersetup{
+%   			colorlinks=false, 	%set true if you want colored links
+				linktoc=all,     	%set to all if you want both sections and subsections linked
+%    			linkcolor=blue,  	%choose some color if you want links to stand out
+				}
+
+% fancyhdr settings
+% custom footers and headers
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%
+	
+
+
+% References
+%\texttt{\usepackage[backend=bibtex, maxcitenames=1, mincitenames=1, style=ieee, sorting=none]{biblatex}
+%%\usepackage{csquotes}
+%\addbibresource{DEPRO.bib}
+%%\usepackage{notoccite}		% figure citations won't affect order}
+
+
+% Units
+\usepackage{siunitx}
+\usepackage{cancel}	%allows crossing out of units
+	\sisetup{load-configurations = abbreviations}
+%	\sisetup{per-mode = fraction}
+	\DeclareSIUnit{\atm}{atm}
+	\DeclareSIUnit{\cal}{cal}
+	\sisetup{per-mode = symbol}
+\usepackage[version=3]{mhchem}		%chemistry
+	
+
+% Misc				%%Figure out what these do
+%\usepackage{enumerate}		
+%\usepackage{nth}
+%\usepackage{gensymb}
+\usepackage{todonotes}	% To do notes
+%\usepackage{capt-of}
+%\usepackage{adjustbox}
+%\usepackage{blindtext}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Macros and Commands
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%scientific notation  use \e
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+%diferential	use \d
+%\def \d {\ensuremath{\operatorname{d}}}
+\renewcommand{\d}[1]{\ensuremath{\mathrm{d}#1}}
+
+
+%email
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+%blank page
+\newcommand*\NewPage{\newpage\null\thispagestyle{empty}\newpage}
+
+% for use with uppercase subscripts to make sizing more consistant
+\newcommand{\s}[1]{_{\!\mathsmaller{#1}}}
+
+
+
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+
+
+% my own titles
+\makeatletter
+\renewcommand{\maketitle}{
+\begin{center}
+\vspace{2ex}
+{\huge \textsc{\@title}}
+\vspace{1ex}
+\\
+\linia\\
+FIRST LAST  \hfill \@date \\
+V00 \hfill \textsc{CLASS}
+\vspace{4ex}
+\end{center}
+}
+\makeatother
+%%%
+
+
+
+%/////////////////////////////////////////////////////////%
+%//						BODY							//%
+%/////////////////////////////////////////////////////////%
+
+\begin{document}
+
+%title
+\title{Assignment NUMBER}
+
+\date{\today}
+\maketitle
+	
+
+\section{Part 1}
+	\subsection{Question 1}
+
+
+\end{document}
